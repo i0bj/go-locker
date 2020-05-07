@@ -7,11 +7,10 @@ import (
 	"syscall"
 )
 
-// Variables that hods directory and user info
+// Variables that holds directory and user info
 var (
 	home = os.UserHomeDir()
 	user = user.Current()
-	trash = 
 	desktop = 
 
 )
