@@ -4,7 +4,8 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
-	"syscall"
+	
+	
 )
 
 // Variables that holds directory and user info
