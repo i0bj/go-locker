@@ -1,20 +1,23 @@
 package symmetric
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
+	"crypto/rand"
 	"fmt"
 )
 
-type AESCIPHER struct {
-	bs  []byte
-	key []byte
+func encryptFile() {
+
 }
 
-// Function to create 32 byte hash.
-func newHash(key []byte) []byte {
-	key := []byte("dfkjasfajsfhdjhadiawe110")
-	hasher := sha256.New()
-	hasher.Write(key)
-	fmt.Println(hex.EncodeToString(hasher.Sum(key)))
+func decryptFile() {
+
+}
+
+func keyGen() {
+	key := make([]byte, 32)
+	_, err := rand.Read(key)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 }
