@@ -20,7 +20,7 @@ func keyGen() *[]byte {
 
 // Encrypt func encrypts files using our random key and file.
 // the result will be an AES cipher block
-func encrypt(data []byte, key []byte) *[]byte {
+func encrypt(data []byte, key []byte) (*[]byte, error) {
 	cipherBlock, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -36,8 +36,8 @@ func encrypt(data []byte, key []byte) *[]byte {
 		return nil, err
 	}
 
-	cipherText := gcm.Seal(nonce, nonce, data)
-	return &cipherText
+	cipherText := gcm.Seal(nonce, nonce, data, nil)
+	return &cipherText, nil
 
 }
 
