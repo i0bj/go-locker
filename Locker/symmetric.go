@@ -41,4 +41,7 @@ func encrypt(data []byte, key []byte) (*[]byte, error) {
 
 }
 
-func encryptFile(filepath string)
+func encryptFile(filepath string, key []byte) (*[]byte, error) {
+	fmt.Println("test")
+
+}
