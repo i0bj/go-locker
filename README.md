@@ -1,1 +1,3 @@
 # goLocker
+
+Educational purposes.
