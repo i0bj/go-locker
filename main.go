@@ -2,16 +2,10 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"runtime"
 )
 
 func main() {
-
-	// Enumerate all directories in ROOT
-	files, _ := ioutil.ReadDir("/")
-
-	for _, f := range files {
-		fmt.Println(f.Name())
-	}
+	fmt.Println(runtime.GOOS)
 
 }
