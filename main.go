@@ -1,11 +1,17 @@
 package main
 
 import (
-	"fmt"
+	"os"
 	"runtime"
 )
 
 func main() {
-	fmt.Println(runtime.GOOS)
+	var files []string
+	var home string
+
+	// Logic to determine if host is running Windows
+	if runtime.GOOS == "windows" {
+		home = os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH")
+	}
 
 }
