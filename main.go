@@ -32,6 +32,13 @@ func main() {
 		panic(err)
 	}
 	for _, file := range files {
+		if locker.
+		fmt.Printf("Locking %d: %s", len(files), file)
+		
+		clearText, err := ioutil.ReadFile(file)
+		if err != nil {
+			log.Println("Error while reading file: ", err)
 
+		}
 	}
 }
