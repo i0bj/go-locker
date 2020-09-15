@@ -1,7 +1,9 @@
 package locker
 
 import (
+	"crypto/rand"
 	"crypto/rsa"
+	"log"
 )
 
 var (
@@ -16,5 +18,13 @@ var (
 )
 
 func RsaCrypt() {
+
+	// Generates privaate/public key pair.
+	PrivKey, err := rsa.GenerateKey(rand.Reader, 2048)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Holds the public key out of the newly created public/private key pair.
+	PubKey := &PrivKey.PublicKey
 
 }
