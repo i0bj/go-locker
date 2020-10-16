@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"runtime"
 
-	"github.com/goLocker/locker"
+	"github.com/go-locker/locker"
 )
 
 func main() {
@@ -32,13 +34,12 @@ func main() {
 		panic(err)
 	}
 	for _, file := range files {
-		if locker.
 		fmt.Printf("Locking %d: %s", len(files), file)
-		
+
 		clearText, err := ioutil.ReadFile(file)
 		if err != nil {
-			log.Println("Error while reading file: ", err)
-
+			continue
 		}
+		locked, err := locker.Encrypt(clearText, locker.KeyGen())
 	}
 }
