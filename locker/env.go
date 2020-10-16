@@ -1,7 +1,6 @@
 // +build linux
 // +build windows
 // +build darwin
-
 package locker
 
 // FileExt to encrypt.
