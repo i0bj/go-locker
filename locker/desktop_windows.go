@@ -1,7 +1,10 @@
 package locker
 
 import (
+	"io"
 	"log"
+	"net/http"
+	"os"
 	"unsafe"
 
 	"golang.org/x/sys/windows"
@@ -11,6 +14,23 @@ var (
 	user32DLL           = windows.NewLazyDLL("user32.dll")
 	procSystemParamInfo = user32DLL.NewProc("SystemParameterInfoW")
 )
+
+func GrabWallpaper(url string, filepath string) error {
+	resp, err := http.Get(url)
+	if err != nil {
+		log.Println(err)
+	}
+	defer resp.Body.Close()
+
+	f, err := os.Create(filepath)
+	if err != nil {
+		log.Println(err)
+	}
+	defer f.Close()
+
+	_, err = io.Copy(f, resp.Body)
+	return err
+}
 
 // WallPaper changes the background for the Windows OS
 func WallPaper() {
