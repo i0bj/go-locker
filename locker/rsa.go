@@ -3,7 +3,6 @@ package locker
 import (
 	"crypto/rand"
 	"crypto/rsa"
-	"log"
 )
 
 var (
@@ -17,14 +16,11 @@ var (
 	Label     []byte
 )
 
+// RsaCrypt will be used to encrypt AES keys
 func RsaCrypt() {
 
-	// Generates privaate/public key pair.
+	// Generates private/public key pair.
 	PrivKey, err := rsa.GenerateKey(rand.Reader, 2048)
-	if err != nil {
-		log.Fatal(err)
-	}
-	// Holds the public key out of the newly created public/private key pair.
-	PubKey := &PrivKey.PublicKey
+
 
 }
