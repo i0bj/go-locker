@@ -1,26 +1,31 @@
-package locker
+package main
 
 import (
+	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
+	"fmt"
+	"log"
 )
 
-var (
-	err       error
-	PrivKey   *rsa.PrivateKey
-	PubKey    *rsa.PublicKey
-	Msg       []byte
-	PlainTxt  []byte
-	CipherTxt []byte
-	Signature []byte
-	Label     []byte
+const (
+	keySize = 2048
 )
 
-// RsaCrypt will be used to encrypt AES keys
-func RsaCrypt() {
+// RsaGen will be used to encrypt AES keys
+func RsaGen() crypto.PublicKey {
 
 	// Generates private/public key pair.
-	PrivKey, err := rsa.GenerateKey(rand.Reader, 2048)
+	rnd := rand.Reader
+	Priv, err := rsa.GenerateKey(rnd, keySize)
+	if err != nil {
+		log.Println(err)
+	}
 
+	return Priv.Public()
 
+}
+
+func main() {
+	fmt.Println(RsaGen())
 }
