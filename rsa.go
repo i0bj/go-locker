@@ -37,7 +37,6 @@ func writePubKey(priv *rsa.PrivateKey) {
 	w.Encode(priv.Public())
 }
 
-// RsaGen will be used to encrypt AES keys
 func main() {
 
 	// Generates private/public key pair.
