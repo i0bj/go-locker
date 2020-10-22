@@ -9,12 +9,14 @@ import (
 	"os"
 )
 
+// Bit size of key used to generate key pair.
 const (
 	keySize = 2048
 )
 
+// Writes private key to file which will be placed in current
+// directory.
 func writePrivKey(priv *rsa.PrivateKey) {
-
 	privFile := "key.priv"
 	f, err := os.Create(privFile)
 	if err != nil {
@@ -26,6 +28,8 @@ func writePrivKey(priv *rsa.PrivateKey) {
 
 }
 
+// Writes public key to file which will be placed in current
+// directory.
 func writePubKey(priv *rsa.PrivateKey) {
 	pubFile := "key.pub"
 	f, err := os.Create(pubFile)
