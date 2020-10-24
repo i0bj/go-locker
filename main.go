@@ -52,4 +52,6 @@ func main() {
 		}
 	}
 
+	KissKeyBye := locker.KeyEncrypt(pubKey)
+
 }
