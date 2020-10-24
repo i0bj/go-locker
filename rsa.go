@@ -32,6 +32,8 @@ func writePubKey(priv *rsa.PrivateKey) {
 		log.Fatalf("Could not write to file: %v", err)
 	}
 	defer f.Close()
+	fmt.Printf("[!] Paste this public key in main: %v ", priv.Public())
+	fmt.Println("\n\n[+] Copy of public key written to file.")
 	w := gob.NewEncoder(f)
 	w.Encode(priv.Public())
 }
