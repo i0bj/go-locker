@@ -45,7 +45,7 @@ func Walker(files *[]string) filepath.WalkFunc {
 
 // Encrypt func encrypts files using our random key and file.
 // the result will be an AES cipher block
-func Encrypt(cleartext []byte, key []byte) (*[]byte, error) {
+func Encrypt(cleartext []byte, key []byte) ([]byte, error) {
 	cipherBlock, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
