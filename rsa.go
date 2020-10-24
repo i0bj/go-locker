@@ -9,11 +9,6 @@ import (
 	"os"
 )
 
-// Bit size of key used to generate key pair.
-const (
-	keySize = 2048
-)
-
 // Writes private key to file which will be placed in current
 // directory.
 func writePrivKey(priv *rsa.PrivateKey) {
@@ -45,7 +40,7 @@ func main() {
 
 	// Generates private/public key pair.
 	rnd := rand.Reader
-	Priv, err := rsa.GenerateKey(rnd, keySize)
+	Priv, err := rsa.GenerateKey(rnd, 2048)
 	if err != nil {
 		log.Println(err)
 	}
